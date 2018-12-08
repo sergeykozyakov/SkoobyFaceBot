@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <commands>
-    <command name="start">
+    <command name="/start">
         <states>
             <state name="*" class="ru.sergeykozyakov.SkoobyBot.commands.StartCommand">
                 <keyboard>
@@ -17,7 +17,7 @@
         </states>
     </command>
 
-    <command name="help">
+    <command name="/help">
         <states>
             <state name="*" class="ru.sergeykozyakov.SkoobyBot.commands.HelpCommand">
                 <keyboard>
@@ -34,7 +34,7 @@
         </states>
     </command>
 
-    <command name="cancel">
+    <command name="/cancel">
         <states>
             <state name="*" class="ru.sergeykozyakov.SkoobyBot.commands.CancelCommand">
                 <keyboard>
@@ -51,7 +51,7 @@
         </states>
     </command>
 
-    <command name="add_import">
+    <command name="/add_import">
         <states>
             <state name="*" class="ru.sergeykozyakov.SkoobyBot.commands.SetFacebookCommand">
                 <keyboard>
@@ -62,7 +62,7 @@
         </states>
     </command>
 
-    <command name="edit_import">
+    <command name="/edit_import">
         <states>
             <state name="*" class="ru.sergeykozyakov.SkoobyBot.commands.SetFacebookCommand">
                 <connectedKeyboard>
@@ -73,7 +73,7 @@
         </states>
     </command>
 
-    <command name="get_import">
+    <command name="/get_import">
         <states>
             <state name="*" class="ru.sergeykozyakov.SkoobyBot.commands.GetFacebookCommand">
                 <keyboard>
@@ -90,7 +90,7 @@
         </states>
     </command>
 
-    <command name="del_import">
+    <command name="/del_import">
         <states>
             <state name="*" class="ru.sergeykozyakov.SkoobyBot.commands.DelFacebookCommand">
                 <keyboard>
@@ -104,7 +104,7 @@
         </states>
     </command>
 
-    <command name="default">
+    <command name="/default">
         <states>
             <state name="default" class="ru.sergeykozyakov.SkoobyBot.commands.DefaultCommand">
                 <keyboard>

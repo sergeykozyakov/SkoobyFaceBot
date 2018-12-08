@@ -1,4 +1,4 @@
-package ru.sergeykozyakov.SkoobyFaceBot.exceptions;
+package ru.sergeykozyakov.skoobyfacebot.exceptions;
 
 public class BotException extends Exception {
     public BotException() {

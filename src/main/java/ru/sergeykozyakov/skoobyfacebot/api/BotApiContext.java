@@ -1,19 +1,19 @@
-package ru.sergeykozyakov.SkoobyFaceBot;
+package ru.sergeykozyakov.skoobyfacebot.api;
 
 import org.telegram.telegrambots.bots.DefaultAbsSender;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import ru.sergeykozyakov.SkoobyFaceBot.exceptions.BotException;
+import ru.sergeykozyakov.skoobyfacebot.exceptions.BotException;
 
-public class BotDefaultContextApi implements BotContextApi {
-    private DefaultAbsSender context;
+public class BotApiContext implements ApiContext {
+    private DefaultAbsSender api;
 
-    public BotDefaultContextApi(DefaultAbsSender context) {
-        this.context = context;
+    public BotApiContext(DefaultAbsSender api) {
+        this.api = api;
     }
 
-    public DefaultAbsSender getContextApi() {
-        return context;
+    public DefaultAbsSender getApi() {
+        return api;
     }
 
     public synchronized void sendMessage(String chatId, String text) throws BotException, TelegramApiException {
@@ -30,6 +30,6 @@ public class BotDefaultContextApi implements BotContextApi {
         message.setChatId(chatId);
         message.setText(text);
 
-        context.execute(message);
+        api.execute(message);
     }
 }

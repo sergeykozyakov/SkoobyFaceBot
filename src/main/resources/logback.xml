@@ -6,17 +6,17 @@
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <layout class="ch.qos.logback.classic.PatternLayout">
-            <Pattern>%date %level %logger{64} [%file:%line] %msg%n</Pattern>
+            <Pattern>%date [%thread] %level %logger{64} [%file:%line] %msg%n</Pattern>
         </layout>
     </appender>
 
     <appender name="sout" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
-            <Pattern>%d{HH:mm:ss.SSS} |-%level in %logger{64} - %msg%n</Pattern>
+            <Pattern>%d{HH:mm:ss.SSS} [%thread] |-%level in %logger{64} - %msg%n</Pattern>
         </layout>
     </appender>
 
-    <logger name="ru.sergeykozyakov.SkoobyFaceBot" level="warn" additivity="false">
+    <logger name="ru.sergeykozyakov.skoobyfacebot" level="warn" additivity="false">
         <appender-ref ref="jul" />
         <appender-ref ref="sout" />
     </logger>

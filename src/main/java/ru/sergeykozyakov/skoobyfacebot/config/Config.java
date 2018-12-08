@@ -1,4 +1,4 @@
-package ru.sergeykozyakov.SkoobyFaceBot;
+package ru.sergeykozyakov.skoobyfacebot.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,29 +7,30 @@ import org.telegram.telegrambots.bots.DefaultBotOptions;
 import java.io.*;
 import java.util.Properties;
 
-public class BotConfig {
-    private static Logger LOG = LoggerFactory.getLogger(BotConfig.class.getName());
+public final class Config {
+    private static Logger LOG = LoggerFactory.getLogger(Config.class.getName());
 
-    private static BotConfig instance;
+    private static Config instance;
     private Properties properties;
 
-    private BotConfig() {
+    private Config() {
         String fileName = "env.properties";
         File file = new File(fileName);
 
         if (file.exists() && !file.isDirectory()) {
             try {
                 InputStream is = new FileInputStream(file.getAbsolutePath());
-
                 properties = new Properties();
                 properties.load(is);
+
+                LOG.info("Bot Environment file was parsed successfully!");
             } catch (IOException e) {
-                LOG.warn("Cannot read env properties file! " + e.getMessage());
+                LOG.error("Cannot read Bot Environment file!", e);
             }
         }
     }
 
-    protected String get(String name) {
+    private String get(String name) {
         String value;
 
         if (properties != null && properties.containsKey(name)) {
@@ -41,20 +42,16 @@ public class BotConfig {
         return (value != null) ? value.trim() : null;
     }
 
-    public static synchronized BotConfig getInstance() {
+    public static synchronized Config getInstance() {
         if (instance == null) {
-            instance = new BotConfig();
+            instance = new Config();
         }
 
         return instance;
     }
 
-    public String getTelegramName() {
-        return get("TELEGRAM_NAME");
-    }
-
-    public String getTelegramToken() {
-        return get("TELEGRAM_TOKEN");
+    public String getTelegramBotToken() {
+        return get("TELEGRAM_BOT_TOKEN");
     }
 
     public String getTelegramProxyHost() {
