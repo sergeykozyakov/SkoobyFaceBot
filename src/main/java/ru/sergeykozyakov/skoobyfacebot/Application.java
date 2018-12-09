@@ -13,9 +13,19 @@ import ru.sergeykozyakov.skoobyfacebot.senders.BotSenderTask;
 
 import java.util.Timer;
 
+/**
+ * Main class for Skooby Facebook Bot.
+ *
+ * @author Sergey Kozyakov
+ */
 public final class Application {
     private static Logger LOG = LoggerFactory.getLogger(Application.class.getName());
 
+    /**
+     * Main initializing method for Skooby Facebook Bot
+     *
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
         LOG.info("Bot is preparing for start");
 

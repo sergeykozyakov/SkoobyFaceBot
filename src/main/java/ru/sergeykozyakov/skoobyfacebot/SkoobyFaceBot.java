@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.sergeykozyakov.skoobyfacebot.api.BotApiContext;
 import ru.sergeykozyakov.skoobyfacebot.config.AppConstants;
@@ -39,17 +40,21 @@ public class SkoobyFaceBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
+        Message message = null;
         BotReceiver receiver = null;
 
         if (update.hasMessage()) {
-            receiver = new BotUpdateReceiver(context, update.getMessage());
-        } else if (update.hasCallbackQuery() && update.getCallbackQuery().getMessage() != null) {
-            receiver = new BotUpdateCallbackReceiver(context, update.getCallbackQuery().getMessage());
+            message = update.getMessage();
+            receiver = new BotUpdateReceiver(context, message);
+        } else if (update.hasCallbackQuery() && (message = update.getCallbackQuery().getMessage()) != null) {
+            receiver = new BotUpdateCallbackReceiver(context, message);
         }
 
         if (receiver != null) {
-            LOG.info("Bot Update Receiver has got message");
-            receiver.execute();
+            String chatId = message.getChatId().toString();
+            LOG.info("[chatId: " + chatId + "] " + receiver.getClass().getSimpleName() + " has got a message");
+
+            receiver.receive();
         }
     }
 

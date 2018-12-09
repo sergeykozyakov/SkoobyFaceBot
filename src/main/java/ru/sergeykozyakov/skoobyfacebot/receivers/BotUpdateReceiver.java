@@ -3,9 +3,10 @@ package ru.sergeykozyakov.skoobyfacebot.receivers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.sergeykozyakov.skoobyfacebot.api.BotApiContext;
-import ru.sergeykozyakov.skoobyfacebot.exceptions.BotException;
+import ru.sergeykozyakov.skoobyfacebot.commands.BotCommand;
+import ru.sergeykozyakov.skoobyfacebot.commands.BotDefaultCommand;
+import ru.sergeykozyakov.skoobyfacebot.commands.BotStartCommand;
 
 public class BotUpdateReceiver extends BotReceiver {
     private static Logger LOG = LoggerFactory.getLogger(BotUpdateReceiver.class.getName());
@@ -15,20 +16,27 @@ public class BotUpdateReceiver extends BotReceiver {
     }
 
     @Override
-    public void execute() {
+    public void receive() {
         Message message = getMessage();
-
         String chatId = message.getChatId().toString();
-        String messageText = message.hasText() ? message.getText() : "";
-        String replyMessage = "Вы написали: " + messageText;
 
-        LOG.info("[chatId: " + chatId + "] Received message: " + messageText);
+        String defaultText = "[not a text]";
+        String messageText = message.hasText() ? message.getText() : defaultText;
 
-        try {
-            getApiContext().sendMessage(chatId, replyMessage);
-            LOG.info("[chatId: " + chatId + "] Bot answered: " + replyMessage);
-        } catch (TelegramApiException | BotException e) {
-            LOG.warn("[chatId: " + chatId + "]", e);
+        BotCommand command;
+
+        switch (messageText) {
+            case "/start":
+                command = new BotStartCommand(getApiContext(), message);
+                break;
+            default:
+                command = new BotDefaultCommand(getApiContext(), message);
+                break;
         }
+
+        LOG.info("[chatId: " + chatId + "] " +
+                command.getClass().getSimpleName() + " is parsing received message: " + messageText);
+
+        command.execute();
     }
 }

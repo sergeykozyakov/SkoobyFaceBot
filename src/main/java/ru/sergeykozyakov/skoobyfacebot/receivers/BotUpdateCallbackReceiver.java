@@ -13,12 +13,14 @@ public class BotUpdateCallbackReceiver extends BotReceiver {
     }
 
     @Override
-    public void execute() {
+    public void receive() {
         Message message = getMessage();
-
         String chatId = message.getChatId().toString();
-        String messageText = message.hasText() ? message.getText() : "";
 
-        LOG.info("[chatId: " + chatId + "] Received callback message: " + messageText);
+        String defaultText = "[not a text]";
+        String messageText = message.hasText() ? message.getText() : defaultText;
+
+        LOG.info("[chatId: " + chatId + "] " +
+                BotUpdateCallbackReceiver.class.getSimpleName() + " received callback message: " + messageText);
     }
 }
