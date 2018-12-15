@@ -5,16 +5,40 @@ import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import ru.sergeykozyakov.skoobyfacebot.api.BotApiContext;
 import ru.sergeykozyakov.skoobyfacebot.commands.BotCommand;
-import ru.sergeykozyakov.skoobyfacebot.commands.BotDefaultCommand;
-import ru.sergeykozyakov.skoobyfacebot.commands.BotStartCommand;
+import ru.sergeykozyakov.skoobyfacebot.commands.BotCommandFactory;
+import ru.sergeykozyakov.skoobyfacebot.entities.Command;
+import ru.sergeykozyakov.skoobyfacebot.entities.Root;
+import ru.sergeykozyakov.skoobyfacebot.entities.State;
+import ru.sergeykozyakov.skoobyfacebot.exceptions.BotException;
+import ru.sergeykozyakov.skoobyfacebot.parsers.BotStateReader;
+import ru.sergeykozyakov.skoobyfacebot.parsers.StateReader;
 
+import java.lang.reflect.InvocationTargetException;
+
+/**
+ * Handles Update event for Bot message
+ *
+ * @author Sergey Kozyakov
+ */
 public class BotUpdateReceiver extends BotReceiver {
+    /**
+     * Event logger
+     */
     private static Logger LOG = LoggerFactory.getLogger(BotUpdateReceiver.class.getName());
 
+    /**
+     * Sets the Telegram Bot API objects
+     *
+     * @param context Telegram Bot API adapter
+     * @param message Telegram Bot message entity
+     */
     public BotUpdateReceiver(BotApiContext context, Message message) {
         super(context, message);
     }
 
+    /**
+     * Executes main receiver actions
+     */
     @Override
     public void receive() {
         Message message = getMessage();
@@ -23,20 +47,55 @@ public class BotUpdateReceiver extends BotReceiver {
         String defaultText = "[not a text]";
         String messageText = message.hasText() ? message.getText() : defaultText;
 
-        BotCommand command;
+        Root statesRoot;
 
-        switch (messageText) {
-            case "/start":
-                command = new BotStartCommand(getApiContext(), message);
-                break;
-            default:
-                command = new BotDefaultCommand(getApiContext(), message);
-                break;
+        try {
+            StateReader stateReader = BotStateReader.getInstance();
+            statesRoot = stateReader.getRoot();
+        } catch (BotException e) {
+            LOG.error("[chatId: " + chatId + "]", e);
+            return;
         }
 
-        LOG.info("[chatId: " + chatId + "] " +
-                command.getClass().getSimpleName() + " is parsing received message: " + messageText);
+        Command command = statesRoot.getCommandByRoute(messageText);
 
-        command.execute();
+        if (command == null) {
+            LOG.error("[chatId: " + chatId + "] " +
+                    "Bot State: can not find an appropriate command handler for message: " + messageText);
+            return;
+        }
+
+        String className = command.getClassName();
+
+        if (className == null) {
+            State state = command.getStateByName(State.DEFAULT_STATE);
+
+            if (state == null) {
+                LOG.error("[chatId: " + chatId + "] " +
+                        "Bot State: can not find an appropriate state handler for message: " + messageText);
+                return;
+            }
+
+            className = state.getClassName();
+
+            if (className == null) {
+                LOG.error("[chatId: " + chatId + "] " +
+                        "Bot State: can not find an appropriate state handler name for message: " + messageText);
+                return;
+            }
+        }
+
+        try {
+            BotCommandFactory botCommandFactory = BotCommandFactory.getInstance();
+            BotCommand botCommand = botCommandFactory.getCommand(className, getApiContext(), message);
+
+            LOG.info("[chatId: " + chatId + "] " +
+                    botCommand.getClass().getSimpleName() + " is parsing received message: " + messageText);
+
+            botCommand.execute();
+        } catch (ClassNotFoundException | InstantiationException | InvocationTargetException |
+                IllegalAccessException | NoSuchMethodException e) {
+            LOG.error("[chatId: " + chatId + "]", e);
+        }
     }
 }

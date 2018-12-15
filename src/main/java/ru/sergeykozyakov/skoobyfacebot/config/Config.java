@@ -14,6 +14,9 @@ import java.util.Properties;
  * @author Sergey Kozyakov
  */
 public final class Config {
+    /**
+     * Event logger
+     */
     private static Logger LOG = LoggerFactory.getLogger(Config.class.getName());
 
     /**
@@ -35,7 +38,7 @@ public final class Config {
 
         if (file.exists() && !file.isDirectory()) {
             try {
-                InputStream is = new FileInputStream(file.getAbsolutePath());
+                InputStream is = new FileInputStream(file);
                 properties = new Properties();
                 properties.load(is);
 
@@ -47,7 +50,7 @@ public final class Config {
     }
 
     /**
-     * Returns the value of requested param from {@code env.properties} file
+     * Returns the value of the requested param from {@code env.properties} file
      * or from OS environment variables. Returns {@code null} if value does not exist.
      *
      * @param name requested param name

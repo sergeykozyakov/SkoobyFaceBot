@@ -19,6 +19,9 @@ import java.util.Timer;
  * @author Sergey Kozyakov
  */
 public final class Application {
+    /**
+     * Event logger
+     */
     private static Logger LOG = LoggerFactory.getLogger(Application.class.getName());
 
     /**

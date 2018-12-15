@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+    <command id="start" class="ru.sergeykozyakov.skoobyfacebot.commands.BotStartCommand">
+        <routes>
+            <route>/start</route>
+            <route>Start</route>
+        </routes>
+        <keyboards>
+            <keyboard id="default">
+                <key>{{add}}</key>
+                <key>{{help}}</key>
+            </keyboard>
+            <keyboard id="linked">
+                <key>{{edit}}</key>
+                <key>{{get}}</key>
+                <key>{{del}}</key>
+                <key>{{help}}</key>
+            </keyboard>
+        </keyboards>
+    </command>
+
+    <command id="help" class="ru.sergeykozyakov.skoobyfacebot.commands.BotHelpCommand">
+        <routes>
+            <route>/help</route>
+            <route>Help</route>
+        </routes>
+        <keyboards>
+            <keyboard id="default">
+                <key>{{add}}</key>
+                <key>{{help}}</key>
+            </keyboard>
+            <keyboard id="linked">
+                <key>{{edit}}</key>
+                <key>{{get}}</key>
+                <key>{{del}}</key>
+                <key>{{help}}</key>
+            </keyboard>
+        </keyboards>
+    </command>
+
+    <command id="cancel" class="ru.sergeykozyakov.skoobyfacebot.commands.BotCancelCommand">
+        <routes>
+            <route>/cancel</route>
+            <route>Cancel</route>
+        </routes>
+        <keyboards>
+            <keyboard id="default">
+                <key>{{add}}</key>
+                <key>{{help}}</key>
+            </keyboard>
+            <keyboard id="linked">
+                <key>{{edit}}</key>
+                <key>{{get}}</key>
+                <key>{{del}}</key>
+                <key>{{help}}</key>
+            </keyboard>
+        </keyboards>
+    </command>
+
+    <command id="add_import" class="ru.sergeykozyakov.skoobyfacebot.commands.BotSetFacebookCommand">
+        <routes>
+            <route>/addImport</route>
+            <route>Add import</route>
+        </routes>
+        <keyboards>
+            <keyboard id="default">
+                <key>{{cancel}}</key>
+            </keyboard>
+        </keyboards>
+    </command>
+
+    <command id="edit_import" class="ru.sergeykozyakov.skoobyfacebot.commands.BotSetFacebookCommand">
+        <routes>
+            <route>/editImport</route>
+            <route>Edit import</route>
+        </routes>
+        <keyboards>
+            <keyboard id="linked">
+                <key>{{cancel}}</key>
+            </keyboard>
+        </keyboards>
+    </command>
+
+    <command id="get_import" class="ru.sergeykozyakov.skoobyfacebot.commands.BotGetFacebookCommand">
+        <routes>
+            <route>/getImport</route>
+            <route>Get import</route>
+        </routes>
+        <keyboards>
+            <keyboard id="default">
+                <key>{{add}}</key>
+                <key>{{help}}</key>
+            </keyboard>
+            <keyboard id="linked">
+                <key>{{edit}}</key>
+                <key>{{get}}</key>
+                <key>{{del}}</key>
+                <key>{{help}}</key>
+            </keyboard>
+        </keyboards>
+    </command>
+
+    <command id="del_import" class="ru.sergeykozyakov.skoobyfacebot.commands.BotDelFacebookCommand">
+        <routes>
+            <route>/delImport</route>
+            <route>Del import</route>
+        </routes>
+        <keyboards>
+            <keyboard id="default">
+                <key>{{add}}</key>
+                <key>{{help}}</key>
+            </keyboard>
+            <keyboard id="linked">
+                <key>{{cancel}}</key>
+            </keyboard>
+        </keyboards>
+    </command>
+
+    <command id="default">
+        <routes>
+            <route>*</route>
+        </routes>
+        <states>
+            <state id="default" class="ru.sergeykozyakov.skoobyfacebot.commands.BotDefaultCommand">
+                <keyboards>
+                    <keyboard id="default">
+                        <key>{{add}}</key>
+                        <key>{{help}}</key>
+                    </keyboard>
+                    <keyboard id="linked">
+                        <key>{{edit}}</key>
+                        <key>{{get}}</key>
+                        <key>{{del}}</key>
+                        <key>{{help}}</key>
+                    </keyboard>
+                </keyboards>
+            </state>
+            <state id="set_fb" class="ru.sergeykozyakov.skoobyfacebot.commands.BotSetFacebookCommand">
+                <keyboards>
+                    <keyboard id="default">
+                        <key>{{cancel}}</key>
+                    </keyboard>
+                    <keyboard id="linked">
+                        <key>{{cancel}}</key>
+                    </keyboard>
+                </keyboards>
+            </state>
+            <state id="set_telegram" class="ru.sergeykozyakov.skoobyfacebot.commands.BotSetFacebookCommand">
+                <keyboards>
+                    <keyboard id="default">
+                        <key>{{edit}}</key>
+                        <key>{{get}}</key>
+                        <key>{{del}}</key>
+                        <key>{{help}}</key>
+                    </keyboard>
+                    <keyboard id="linked">
+                        <key>{{edit}}</key>
+                        <key>{{get}}</key>
+                        <key>{{del}}</key>
+                        <key>{{help}}</key>
+                    </keyboard>
+                </keyboards>
+            </state>
+            <state id="set_telegram_error" class="ru.sergeykozyakov.skoobyfacebot.commands.BotSetFacebookCommand">
+                <keyboards>
+                    <keyboard id="default">
+                        <key>{{cancel}}</key>
+                    </keyboard>
+                    <keyboard id="linked">
+                        <key>{{cancel}}</key>
+                    </keyboard>
+                </keyboards>
+            </state>
+            <state id="del_fb" class="ru.sergeykozyakov.skoobyfacebot.commands.BotDelFacebookCommand">
+                <keyboards>
+                    <keyboard id="linked">
+                        <key>{{add}}</key>
+                        <key>{{help}}</key>
+                    </keyboard>
+                </keyboards>
+            </state>
+        </states>
+    </command>
+</commands>

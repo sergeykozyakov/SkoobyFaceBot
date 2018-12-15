@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<commands>
+    <command id="start" class="ru.sergeykozyakov.skoobyfacebot.commands.BotStartCommand">
+        <routes>
+            <route>/start</route>
+            <route>Start</route>
+        </routes>
+        <keyboards>
+            <keyboard id="default">
+                <key>{{add}}</key>
+                <key>{{help}}</key>
+            </keyboard>
+            <keyboard id="linked">
+                <key>{{edit}}</key>
+                <key>{{get}}</key>
+                <key>{{del}}</key>
+                <key>{{help}}</key>
+            </keyboard>
+        </keyboards>
+    </command>
+
+    <command id="default" class="ru.sergeykozyakov.skoobyfacebot.commands.BotDefaultCommand">
+        <routes>
+            <route>*</route>
+        </routes>
+        <keyboards>
+            <keyboard id="default">
+                <key>{{add}}</key>
+                <key>{{help}}</key>
+            </keyboard>
+            <keyboard id="linked">
+                <key>{{edit}}</key>
+                <key>{{get}}</key>
+                <key>{{del}}</key>
+                <key>{{help}}</key>
+            </keyboard>
+        </keyboards>
+    </command>
+</commands>

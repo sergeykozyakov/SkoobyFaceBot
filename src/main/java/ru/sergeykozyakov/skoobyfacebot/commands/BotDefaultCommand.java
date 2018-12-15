@@ -7,13 +7,30 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.sergeykozyakov.skoobyfacebot.api.BotApiContext;
 import ru.sergeykozyakov.skoobyfacebot.exceptions.BotException;
 
+/**
+ * Handles Default Bot Command
+ *
+ * @author Sergey Kozyakov
+ */
 public class BotDefaultCommand extends BotCommand {
+    /**
+     * Event logger
+     */
     private static Logger LOG = LoggerFactory.getLogger(BotDefaultCommand.class.getName());
 
+    /**
+     * Sets the Telegram Bot API objects
+     *
+     * @param context Telegram Bot API adapter
+     * @param message Telegram Bot message entity
+     */
     public BotDefaultCommand(BotApiContext context, Message message) {
         super(context, message);
     }
 
+    /**
+     * Executes main command actions
+     */
     @Override
     public void execute() {
         Message message = getMessage();
@@ -29,7 +46,7 @@ public class BotDefaultCommand extends BotCommand {
             LOG.info("[chatId: " + chatId + "] " +
                     BotDefaultCommand.class.getSimpleName() + " sent message: " + replyMessage);
         } catch (TelegramApiException | BotException e) {
-            LOG.warn("[chatId: " + chatId + "]", e);
+            LOG.error("[chatId: " + chatId + "]", e);
         }
     }
 }
