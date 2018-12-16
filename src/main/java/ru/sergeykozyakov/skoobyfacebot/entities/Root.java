@@ -38,6 +38,7 @@ public class Root {
     /**
      * Returns the needed command by its route or {@code null} if it does not exist
      *
+     * @param routeName route name
      * @return needed command
      */
     public Command getCommandByRoute(String routeName) {
@@ -61,6 +62,32 @@ public class Root {
                     return getCommandByRoute(Route.DEFAULT_ROUTE);
                 }
             }
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the needed keyboard of passed object by its id
+     * or {@code null} if it does not exist
+     *
+     * @param obj {@code Keyboardable} entity
+     * @param keyboardId keyboard id
+     * @return needed keyboard
+     */
+    public static Keyboard getKeyboardById(Keyboardable obj, String keyboardId) {
+        if (obj.getKeyboards() == null) {
+            return null;
+        }
+
+        for (Keyboard keyboard : obj.getKeyboards()) {
+            if (keyboard.getId() != null && keyboard.getId().equals(keyboardId)) {
+                return keyboard;
+            }
+        }
+
+        if (!keyboardId.equals(Keyboard.DEFAULT_KEYBOARD)) {
+            return getKeyboardById(obj, Keyboard.DEFAULT_KEYBOARD);
         }
 
         return null;

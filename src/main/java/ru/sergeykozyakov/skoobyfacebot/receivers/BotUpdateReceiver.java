@@ -7,6 +7,7 @@ import ru.sergeykozyakov.skoobyfacebot.api.BotApiContext;
 import ru.sergeykozyakov.skoobyfacebot.commands.BotCommand;
 import ru.sergeykozyakov.skoobyfacebot.commands.BotCommandFactory;
 import ru.sergeykozyakov.skoobyfacebot.entities.Command;
+import ru.sergeykozyakov.skoobyfacebot.entities.Keyboard;
 import ru.sergeykozyakov.skoobyfacebot.entities.Root;
 import ru.sergeykozyakov.skoobyfacebot.entities.State;
 import ru.sergeykozyakov.skoobyfacebot.exceptions.BotException;
@@ -66,9 +67,10 @@ public class BotUpdateReceiver extends BotReceiver {
         }
 
         String className = command.getClassName();
+        Keyboard keyboard;
 
         if (className == null) {
-            State state = command.getStateByName(State.DEFAULT_STATE);
+            State state = command.getStateById(State.DEFAULT_STATE);
 
             if (state == null) {
                 LOG.error("[chatId: " + chatId + "] " +
@@ -82,12 +84,20 @@ public class BotUpdateReceiver extends BotReceiver {
                 LOG.error("[chatId: " + chatId + "] " +
                         "Bot State: can not find an appropriate state handler name for message: " + messageText);
                 return;
+            } else {
+                keyboard = state.getKeyboardById(Keyboard.DEFAULT_KEYBOARD);
             }
+        } else {
+            keyboard = command.getKeyboardById(Keyboard.DEFAULT_KEYBOARD);
+        }
+
+        if (keyboard == null) {
+            keyboard = new Keyboard();
         }
 
         try {
             BotCommandFactory botCommandFactory = BotCommandFactory.getInstance();
-            BotCommand botCommand = botCommandFactory.getCommand(className, getApiContext(), message);
+            BotCommand botCommand = botCommandFactory.getCommand(className, getApiContext(), message, keyboard);
 
             LOG.info("[chatId: " + chatId + "] " +
                     botCommand.getClass().getSimpleName() + " is parsing received message: " + messageText);

@@ -12,9 +12,9 @@ import java.util.List;
  * @author Sergey Kozyakov
  */
 @XmlRootElement
-public class State {
+public class State implements Keyboardable {
     /**
-     * Default state value
+     * Default state id
      */
     public static final String DEFAULT_STATE = "default";
 
@@ -89,5 +89,15 @@ public class State {
     @XmlAttribute(name = "class")
     public void setClassName(String className) {
         this.className = className;
+    }
+
+    /**
+     * Returns the needed keyboard by its id or {@code null} if it does not exist
+     *
+     * @param keyboardId keyboard id
+     * @return needed keyboard
+     */
+    public Keyboard getKeyboardById(String keyboardId) {
+        return Root.getKeyboardById(this, keyboardId);
     }
 }

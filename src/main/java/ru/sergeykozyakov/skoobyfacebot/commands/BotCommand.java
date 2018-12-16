@@ -2,6 +2,7 @@ package ru.sergeykozyakov.skoobyfacebot.commands;
 
 import org.telegram.telegrambots.meta.api.objects.Message;
 import ru.sergeykozyakov.skoobyfacebot.api.BotApiContext;
+import ru.sergeykozyakov.skoobyfacebot.entities.Keyboard;
 
 /**
  * Abstract Command class
@@ -20,14 +21,21 @@ public abstract class BotCommand implements Command {
     private Message message;
 
     /**
+     * Reply markup keyboard
+     */
+    private Keyboard keyboard;
+
+    /**
      * Sets the Telegram Bot API objects
      *
      * @param context Telegram Bot API adapter
      * @param message Telegram Bot message entity
+     * @param keyboard reply markup keyboard
      */
-    public BotCommand(BotApiContext context, Message message) {
+    public BotCommand(BotApiContext context, Message message, Keyboard keyboard) {
         this.context = context;
         this.message = message;
+        this.keyboard = keyboard;
     }
 
     /**
@@ -46,5 +54,14 @@ public abstract class BotCommand implements Command {
      */
     public Message getMessage() {
         return message;
+    }
+
+    /**
+     * Returns the reply markup keyboard
+     *
+     * @return reply markup keyboard
+     */
+    public Keyboard getKeyboard() {
+        return keyboard;
     }
 }

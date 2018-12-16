@@ -2,6 +2,7 @@ package ru.sergeykozyakov.skoobyfacebot.commands;
 
 import org.telegram.telegrambots.meta.api.objects.Message;
 import ru.sergeykozyakov.skoobyfacebot.api.BotApiContext;
+import ru.sergeykozyakov.skoobyfacebot.entities.Keyboard;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -41,6 +42,7 @@ public class BotCommandFactory {
      * @param className name of the appropriate command class
      * @param api API context object
      * @param message received message
+     * @param keyboard reply markup keyboard
      * @return new {@code BotCommand} instance
      * @throws ClassNotFoundException if class is not found
      * @throws NoSuchMethodException if method is not found
@@ -48,11 +50,12 @@ public class BotCommandFactory {
      * @throws InvocationTargetException if target is wrong
      * @throws InstantiationException if installation is wrong
      */
-    public BotCommand getCommand(String className, BotApiContext api, Message message) throws ClassNotFoundException,
-            NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    public BotCommand getCommand(String className, BotApiContext api, Message message, Keyboard keyboard)
+            throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException,
+            InvocationTargetException, InstantiationException {
         Class<?> cl = Class.forName(className);
-        Constructor constructor = cl.getConstructor(BotApiContext.class, Message.class);
+        Constructor constructor = cl.getConstructor(BotApiContext.class, Message.class, Keyboard.class);
 
-        return (BotCommand)constructor.newInstance(api, message);
+        return (BotCommand)constructor.newInstance(api, message, keyboard);
     }
 }

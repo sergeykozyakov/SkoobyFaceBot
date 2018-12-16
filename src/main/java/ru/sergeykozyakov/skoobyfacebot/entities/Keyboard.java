@@ -13,6 +13,11 @@ import java.util.List;
 @XmlRootElement
 public class Keyboard {
     /**
+     * Default keyboard id
+     */
+    public static final String DEFAULT_KEYBOARD = "default";
+
+    /**
      * Keyboard id attribute
      */
     private String id;

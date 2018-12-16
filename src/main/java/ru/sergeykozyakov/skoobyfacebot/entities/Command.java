@@ -12,7 +12,7 @@ import java.util.List;
  * @author Sergey Kozyakov
  */
 @XmlRootElement
-public class Command {
+public class Command implements Keyboardable {
     /**
      * List of states
      */
@@ -139,23 +139,34 @@ public class Command {
     /**
      * Returns the needed state by its id or {@code null} if it does not exist
      *
+     * @param stateId state id
      * @return needed state
      */
-    public State getStateByName(String stateName) {
+    public State getStateById(String stateId) {
         if (getStates() == null) {
             return null;
         }
 
         for (State state : getStates()) {
-            if (state.getId() != null && state.getId().equals(stateName)) {
+            if (state.getId() != null && state.getId().equals(stateId)) {
                 return state;
-            }
-
-            if (!stateName.equals(State.DEFAULT_STATE)) {
-                return getStateByName(State.DEFAULT_STATE);
             }
         }
 
+        if (!stateId.equals(State.DEFAULT_STATE)) {
+            return getStateById(State.DEFAULT_STATE);
+        }
+
         return null;
+    }
+
+    /**
+     * Returns the needed keyboard by its id or {@code null} if it does not exist
+     *
+     * @param keyboardId keyboard id
+     * @return needed keyboard
+     */
+    public Keyboard getKeyboardById(String keyboardId) {
+        return Root.getKeyboardById(this, keyboardId);
     }
 }
