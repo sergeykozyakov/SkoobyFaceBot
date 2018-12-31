@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.sergeykozyakov.skoobyfacebot.api.BotApiContext;
-import ru.sergeykozyakov.skoobyfacebot.entities.Keyboard;
+import ru.sergeykozyakov.skoobyfacebot.entities.xml.Keyboard;
 import ru.sergeykozyakov.skoobyfacebot.exceptions.BotException;
 
 /**

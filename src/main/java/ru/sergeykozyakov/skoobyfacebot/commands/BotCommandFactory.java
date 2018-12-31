@@ -2,7 +2,7 @@ package ru.sergeykozyakov.skoobyfacebot.commands;
 
 import org.telegram.telegrambots.meta.api.objects.Message;
 import ru.sergeykozyakov.skoobyfacebot.api.BotApiContext;
-import ru.sergeykozyakov.skoobyfacebot.entities.Keyboard;
+import ru.sergeykozyakov.skoobyfacebot.entities.xml.Keyboard;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

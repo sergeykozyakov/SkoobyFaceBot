@@ -3,7 +3,7 @@ package ru.sergeykozyakov.skoobyfacebot.parsers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
-import ru.sergeykozyakov.skoobyfacebot.entities.Root;
+import ru.sergeykozyakov.skoobyfacebot.entities.xml.Root;
 import ru.sergeykozyakov.skoobyfacebot.exceptions.BotException;
 
 import javax.xml.XMLConstants;

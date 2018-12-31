@@ -1,33 +1,38 @@
-package ru.sergeykozyakov.skoobyfacebot.entities;
+package ru.sergeykozyakov.skoobyfacebot.entities.xml;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 
 /**
- * XML Key entity
+ * XML Route entity
  *
  * @author Sergey Kozyakov
  */
 @XmlRootElement
-public class Key {
+public class Route {
     /**
-     *  Key value
+     * Default route value
+     */
+    public static final String DEFAULT_ROUTE = "*";
+
+    /**
+     * Route value
      */
     private String value;
 
     /**
-     * Returns the key value
+     * Returns the route value or {@code null} if it does not exist
      *
-     * @return key value or {@code null} if it does not exist
+     * @return route value
      */
     public String getValue() {
         return value;
     }
 
     /**
-     * Sets the key value
+     * Sets the route value
      *
-     * @param value key value
+     * @param value route value
      */
     @XmlValue
     public void setValue(String value) {

@@ -5,8 +5,8 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import ru.sergeykozyakov.skoobyfacebot.entities.Key;
-import ru.sergeykozyakov.skoobyfacebot.entities.Keyboard;
+import ru.sergeykozyakov.skoobyfacebot.entities.xml.Key;
+import ru.sergeykozyakov.skoobyfacebot.entities.xml.Keyboard;
 import ru.sergeykozyakov.skoobyfacebot.exceptions.BotException;
 
 import java.util.ArrayList;

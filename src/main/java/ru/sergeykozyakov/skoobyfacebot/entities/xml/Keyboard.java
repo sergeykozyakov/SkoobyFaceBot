@@ -1,4 +1,4 @@
-package ru.sergeykozyakov.skoobyfacebot.entities;
+package ru.sergeykozyakov.skoobyfacebot.entities.xml;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;

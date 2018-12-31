@@ -1,6 +1,6 @@
 package ru.sergeykozyakov.skoobyfacebot.parsers;
 
-import ru.sergeykozyakov.skoobyfacebot.entities.Root;
+import ru.sergeykozyakov.skoobyfacebot.entities.xml.Root;
 import ru.sergeykozyakov.skoobyfacebot.exceptions.BotException;
 
 /**

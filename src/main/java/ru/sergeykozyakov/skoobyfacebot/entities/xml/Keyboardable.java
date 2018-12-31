@@ -1,4 +1,4 @@
-package ru.sergeykozyakov.skoobyfacebot.entities;
+package ru.sergeykozyakov.skoobyfacebot.entities.xml;
 
 import java.util.List;
 
